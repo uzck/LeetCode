@@ -85,6 +85,9 @@ public void swap(int[] A, int odd, int even) {
 
 代码写的比较复杂，核心思路倒是挺简单：用两个变量odd和even指向奇数和偶数，每一次循环交换。做题的时候考虑的不够仔细，对于`A.length=1`和A全为奇数的情况考虑不当。运行时间也很长，21ms。
 ## Discuss里的解答
+
+1. 利用额外空间存储
+
 ```java
 public int[] sortArrayByParity(int[] A) {
     if (A == null)
@@ -107,3 +110,41 @@ private boolean isEven(int n) {
 ```
 
 利用新数组来存储结果，遍历的同时分两头存储，妙啊。
+
+2. 交换方法的精简版
+
+   ```java
+   public int[] sortArrayByParity(int[] A) {
+       if (A == null || A.length == 0)
+           return A;
+   
+       boolean foundOdd = false, foundEven = false;
+       int s = 0, e = A.length - 1;
+       while (s < e) {
+           if (foundOdd && foundEven) {
+               int tmp = A[s];
+               A[s++] = A[e];
+               A[e--] = tmp;
+               foundOdd = false;
+               foundEven = false;
+           } else {
+               if (!foundOdd) {
+                   if (A[s] % 2 != 0) {
+                       foundOdd = true;
+                   } else {
+                       s++;
+                   }
+               }
+   
+               if (!foundEven) {
+                   if (A[e] % 2 == 0) {
+                       foundEven = true;
+                   } else {
+                       e--;
+                   }
+               }
+           }
+       }
+       return A;
+   }
+   ```
