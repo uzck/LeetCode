@@ -4,13 +4,17 @@ import java.util.ArrayList;
 
 public class Problem944 {
 
+    /**
+     * 太复杂
+     * @param A
+     * @return
+     */
+    @Deprecated
     public int minDeletionSize(String[] A) {
         // 不需要删除元素
         if (A == null || A.length == 1 || A.length == 0) {
             return 0;
         }
-
-        int length = A.length;
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < A.length; i++) {
             builder.append(A[i]);
@@ -33,6 +37,18 @@ public class Problem944 {
         return sum;
     }
 
+    public int simpleMinDeletionSize(String[] A) {
+        int ans = 0, m = A.length, n = A[0].length();
+        for (int j = 0; j < n; j++){
+            for (int i = 0; i < m - 1; i++)
+                if (A[i].charAt(j) > A[i+1].charAt(j)) {
+                    ans++;
+                    break;
+                }
+        }
+        return ans;
+    }
+
     public static void main(String[] args) {
 
 //        String[] inputs = new String[] {"cba", "daf", "ghi"};
@@ -41,6 +57,6 @@ public class Problem944 {
         String[] inputs = new String[] {"rrjk", "furt", "guzm"};
 
         Problem944 problem944 = new Problem944();
-        System.out.println(problem944.minDeletionSize(inputs));
+        System.out.println(problem944.simpleMinDeletionSize(inputs));
     }
 }
