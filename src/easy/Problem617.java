@@ -57,4 +57,18 @@ public class Problem617 {
         }
         return t1;
     }
+
+    public static void main(String[] args) {
+        TreeNode t1 = new TreeNode(1);
+        t1.right = new TreeNode(1);
+        t1.right.left = new TreeNode(2);
+
+        TreeNode t2 = new TreeNode(1);
+        t1.right = new TreeNode(1);
+        t1.right.right = new TreeNode(1);
+        t1.right.right.left = new TreeNode(2);
+
+        Problem617 problem617 = new Problem617();
+        problem617.mergeTrees(t1, t2);
+    }
 }
