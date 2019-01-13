@@ -22,4 +22,30 @@ public class Problem700 {
         }
         return null;
     }
+
+    /**
+     * no recursion ver
+     * @param root
+     * @param val
+     * @return
+     */
+    public TreeNode searchBSTByIteration(TreeNode root, int val) {
+        if (root == null) {
+            return root;
+        }
+        while (root != null) {
+            if (root.val == val) {
+                return root;
+            }
+            if (root.val > val) {
+                root = root.left;
+                continue;
+            }
+            if (root.val < val) {
+                root = root.right;
+                continue;
+            }
+        }
+        return null;
+    }
 }
