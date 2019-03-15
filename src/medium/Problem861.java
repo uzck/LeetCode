@@ -70,6 +70,24 @@ public class Problem861 {
 
     }
 
+    /**
+     * 讨论区里的解 牛逼
+     * 首先考虑A[i][0]的重要性：A[i][0]如果为1 比A[i][1]+...+A[i][N-1]都要大
+     * 因此A[i][0]应该都为1
+     * 在这个基础上再对第二列开始的列进行判断 如果0的数目多就反转 (同一列的每个1代表的值是一样的)
+     * @param A
+     * @return
+     */
+    public int goodSolution(int[][] A) {
+        int M = A.length, N = A[0].length, res = (1 << (N - 1)) * M; // 假定第一列的全为1
+        for (int j = 1; j < N; j++) {
+            int cur = 0;
+            for (int i = 0; i < M; i++) cur += A[i][j] == A[i][0] ? 1 : 0; // 统计每一列1的个数
+            res += Math.max(cur, M - cur) * (1 << (N - j - 1)); // M-cur为0的个数 
+        }
+        return res;
+    }
+
 
     // 1 1 1 1
     // 1 0 0 1
