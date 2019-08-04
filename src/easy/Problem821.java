@@ -7,6 +7,45 @@ import java.util.Stack;
  */
 public class Problem821 {
 
+
+    /**
+     * 论坛里0ms的解法
+     * 初始为last为-1
+     * @param S
+     * @param C
+     * @return
+     */
+    public int[] shortestToCharFast(String S, char C) {
+        int[] res = new int[S.length()];
+        int last = -1;
+        while (last != S.length() - 1) {
+            // 从上一个C之后找下一个C的位置
+            int index = S.indexOf(C, last + 1);
+            // 如果后面还有C
+            if (index != -1) {
+                // last == 0时 也就是找到第一个C所在的位置
+                // 更新C之前字符的距离
+                for (int i = last + 1; i <= index; i++) {
+                    if (last != -1) {
+                        res[i] = Math.min(i - last, index - i);
+                    } else {
+                        // 初始执行的代码
+                        res[i] = index - i;
+                    }
+                }
+                last = index;
+            } else {
+                // 后面没有C了
+                for (int i = last + 1; i < res.length; i++) {
+                    res[i] = i - last;
+                }
+                last = res.length - 1;
+            }
+        }
+        return res;
+    }
+
+
     /**
      * 先从前往后扫描一遍 得到第一个结果
      * 再从后往前扫描，如果这次得到的距离比上次的近，则更新距离值
