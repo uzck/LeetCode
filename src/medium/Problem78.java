@@ -35,14 +35,41 @@ public class Problem78 {
         current.remove(current.size() - 1);
     }
 
+    /**
+     * 比较标准的回溯法模板
+     * @param nums
+     * @return
+     */
+    public List<List<Integer>> subsetsBackTrack(int[] nums) {
+        List<List<Integer>> list = new ArrayList<>();
+        Arrays.sort(nums);
+        backtrack(list, new ArrayList<>(), nums, 0);
+        return list;
+    }
+
+
+    /**
+     * 回溯法模板
+     * 1. 添加当前操作数
+     * 2. 迭代下一个所有可能的值
+     * 3. 移除当前操作数
+     * @param list
+     * @param tempList
+     * @param nums
+     * @param start
+     */
+    private void backtrack(List<List<Integer>> list , List<Integer> tempList, int [] nums, int start){
+        list.add(new ArrayList<>(tempList));
+        for(int i = start; i < nums.length; i++){
+            tempList.add(nums[i]);
+            backtrack(list, tempList, nums, i + 1);
+            tempList.remove(tempList.size() - 1);
+        }
+    }
+
     public static void main(String[] args) {
         Problem78 problem78 = new Problem78();
         List<List<Integer>> result = problem78.subsetsBFS(new int[] {1, 2, 3});
-        for (int i = 0; i < result.size(); i++) {
-            for (int j = 0; j < result.get(i).size(); j++) {
-                System.out.println(result.get(i).get(j));
-            }
-        }
     }
 
     /**
