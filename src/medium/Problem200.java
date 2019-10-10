@@ -4,6 +4,10 @@ package medium;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * Number of Islands
+ * 找出二维矩阵中联通的'1'的区域个数
+ */
 public class Problem200 {
 
     /**
